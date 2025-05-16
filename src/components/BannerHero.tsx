@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function BannerHero() {
+  const navigate = useNavigate();
   return (
     <section className="w-full flex items-center justify-center mt-6 px-2">
       <div
@@ -14,7 +16,10 @@ export default function BannerHero() {
           <p className="text-lg md:text-xl text-sky-100/95 font-medium max-w-md pb-3" style={{textShadow: "0 1px 10px #203173c4"}}>
             Cập nhật xu hướng mùa đông & bộ sưu tập độc quyền, giúp bạn luôn nổi bật dù băng giá.
           </p>
-          <button className="mt-2 inline-block w-fit bg-white/85 text-[#233658] text-lg font-bold tracking-wide px-7 py-2 rounded-lg shadow hover:bg-[#fead62] hover:text-white/95 hover:scale-105 transition-all duration-200 border border-[#ffe5c8]">
+          <button
+            className="mt-2 inline-block w-fit bg-white/85 text-[#233658] text-lg font-bold tracking-wide px-7 py-2 rounded-lg shadow hover:bg-[#fead62] hover:text-white/95 hover:scale-105 transition-all duration-200 border border-[#ffe5c8]"
+            onClick={() => navigate("/products")}
+          >
             Mua sắm ngay
           </button>
         </div>

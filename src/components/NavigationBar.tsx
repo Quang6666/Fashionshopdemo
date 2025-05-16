@@ -24,8 +24,7 @@ export default function NavigationBar() {
         </div>
         {/* Menu */}
         <ul className="hidden md:flex gap-7 text-zinc-100 font-bold text-base items-center">
-          <li><a href="#" className="frost-hover px-3 py-1.5 rounded-md font-bold transition-all duration-200">Trang chủ</a></li>
-          <li><a href="#products" className="frost-hover px-3 py-1.5 rounded-md font-bold transition-all duration-200">Sản phẩm</a></li>
+          <li><a href="/products" className="frost-hover px-3 py-1.5 rounded-md font-bold transition-all duration-200">Sản phẩm</a></li>
           <li><a href="#sale" className="frost-hover px-3 py-1.5 rounded-md font-bold transition-all duration-200">Sale</a></li>
           <li><a href="#contact" className="frost-hover px-3 py-1.5 rounded-md font-bold transition-all duration-200">Liên hệ</a></li>
         </ul>
