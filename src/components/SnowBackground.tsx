@@ -53,7 +53,11 @@ const TREE_POSITIONS = Array.from({ length: TREE_COUNT }).map((_, idx) => {
   return { x, y, size };
 });
 
-const SnowBackground: React.FC = ({ children }) => {
+interface SnowBackgroundProps {
+  children?: React.ReactNode;
+}
+
+const SnowBackground: React.FC<SnowBackgroundProps> = ({ children }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -99,20 +103,20 @@ const SnowBackground: React.FC = ({ children }) => {
     };
   }, []);
   return (
-    <div style={{ position: "fixed", inset: 0, width: "100vw", height: "100vh", zIndex: -1, overflow: "hidden" }}>
+    <div style={{ position: "relative", minHeight: "100vh", width: "100vw", overflow: "hidden" }}>
       <div
         style={{
           position: "absolute",
           left: 0,
           top: 0,
           width: "100vw",
-          height: "100vh", // phủ toàn bộ chiều cao
+          height: "100vh",
           background: "linear-gradient(180deg, #232947 0%, #384f78 50%, #b3d1f7 100%)",
           zIndex: 0,
         }}
       />
       {/* Hiệu ứng tuyết rơi phủ toàn màn hình, luôn nổi trên núi/cây */}
-      <canvas ref={canvasRef} style={{ width: "100vw", height: "100vh", display: "block", position: "absolute", left: 0, top: 0, pointerEvents: "none", zIndex: 3 }} />
+      <canvas ref={canvasRef} style={{ width: "100vw", height: "100vh", display: "block", position: "fixed", left: 0, top: 0, pointerEvents: "none", zIndex: 3 }} />
       {/* Đồi tuyết ở nửa dưới dạng SVG */}
       <svg
         style={{ position: "absolute", left: 0, bottom: 0, width: "100vw", height: "46vh", zIndex: 1 }}
@@ -137,7 +141,10 @@ const SnowBackground: React.FC = ({ children }) => {
           <PineTree key={i} x={pos.x} y={pos.y} size={pos.size} />
         ))}
       </div>
-      {children}
+      {/* Đảm bảo mọi children (nội dung chính, danh sách, footer) luôn nằm trên cùng */}
+      <div style={{ position: "relative", zIndex: 10 }}>
+        {children}
+      </div>
     </div>
   );
 };
