@@ -123,18 +123,13 @@ function App() {
   }
 `}</style>
                 {/* Chân trang (Footer) chuyên nghiệp */}
-                <footer className="w-full mt-16 pt-10 pb-7 bg-gradient-to-t from-[#233658] via-[#2e4066] to-[#3e5a8a] text-white shadow-inner border-t border-white/10">
+                <footer className="w-full mt-16 pt-10 pb-7 bg-gradient-to-t from-[var(--main-grad1)] via-[var(--main-grad2)] to-[var(--main-grad4)] text-[#eaf6ff] shadow-inner border-t border-white/10 transition-colors duration-500">
                   <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-start md:justify-between gap-8 px-4">
                     {/* Cột 1: Logo & giới thiệu */}
                     <div className="flex-1 min-w-[200px] mb-6 md:mb-0">
                       <div className="flex items-center gap-2 mb-3">
-                        <span className="inline-block rounded-full bg-gradient-to-tr from-blue-200 to-sky-400 p-1 mr-2">
-                          <svg
-                            width={36}
-                            height={36}
-                            viewBox="0 0 40 40"
-                            fill="none"
-                          >
+                        <span className="inline-block rounded-full bg-gradient-to-tr from-[var(--main-grad3)] to-[var(--main-grad4)] p-1 mr-2">
+                          <svg width={36} height={36} viewBox="0 0 40 40" fill="none">
                             <circle
                               cx="20"
                               cy="20"
@@ -156,7 +151,7 @@ function App() {
                           Snow Fashion Store
                         </span>
                       </div>
-                      <p className="text-sky-100/90 text-sm max-w-xs leading-relaxed">
+                      <p className="text-[#eaf6ff]/90 text-sm max-w-xs leading-relaxed">
                         Đem đến cho bạn trải nghiệm mua sắm mùa đông đẳng cấp với các
                         sản phẩm thời trang ấm áp, hiện đại và phong cách. Cảm hứng từ
                         tuyết trắng và sắc xanh lạnh, chúng tôi luôn cập nhật xu hướng
@@ -165,14 +160,14 @@ function App() {
                     </div>
                     {/* Cột 2: Liên kết nhanh */}
                     <div className="flex-1 min-w-[180px] mb-6 md:mb-0">
-                      <h4 className="font-bold text-lg mb-3 text-sky-200">
+                      <h4 className="font-bold text-lg mb-3 text-[var(--main-accent)]">
                         Liên kết nhanh
                       </h4>
-                      <ul className="space-y-2 text-sky-100/90">
+                      <ul className="space-y-2 text-[#eaf6ff]/90">
                         <li>
                           <a
                             href="/"
-                            className="hover:text-sky-300 transition"
+                            className="hover:text-[var(--main-accent)] hover:bg-white hover:bg-opacity-80 transition rounded px-2 py-1"
                           >
                             Trang chủ
                           </a>
@@ -180,7 +175,7 @@ function App() {
                         <li>
                           <a
                             href="/products"
-                            className="hover:text-sky-300 transition"
+                            className="hover:text-[var(--main-accent)] hover:bg-white hover:bg-opacity-80 transition rounded px-2 py-1"
                           >
                             Sản phẩm
                           </a>
@@ -188,7 +183,7 @@ function App() {
                         <li>
                           <a
                             href="#sale"
-                            className="hover:text-sky-300 transition"
+                            className="hover:text-[var(--main-accent)] hover:bg-white hover:bg-opacity-80 transition rounded px-2 py-1"
                           >
                             Khuyến mãi
                           </a>
@@ -196,7 +191,7 @@ function App() {
                         <li>
                           <a
                             href="#contact"
-                            className="hover:text-sky-300 transition"
+                            className="hover:text-[var(--main-accent)] hover:bg-white hover:bg-opacity-80 transition rounded px-2 py-1"
                           >
                             Liên hệ
                           </a>
@@ -205,7 +200,7 @@ function App() {
                     </div>
                     {/* Cột 3: Đăng ký nhận tin */}
                     <div className="flex-1 min-w-[220px]">
-                      <h4 className="font-bold text-lg mb-3 text-sky-200">
+                      <h4 className="font-bold text-lg mb-3 text-[var(--main-accent)]">
                         Nhận ưu đãi & tin mới
                       </h4>
                       <form className="flex flex-col gap-2">
@@ -213,11 +208,11 @@ function App() {
                           type="email"
                           required
                           placeholder="Nhập email của bạn"
-                          className="rounded-lg px-3 py-2 bg-white/90 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                          className="rounded-lg px-3 py-2 bg-white/90 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--main-accent)]"
                         />
                         <button
                           type="submit"
-                          className="bg-sky-500 hover:bg-sky-600 text-white font-bold px-5 py-2 rounded-lg shadow transition"
+                          className="bg-[var(--main-accent)] hover:bg-[var(--main-btn-hover)] text-white font-bold px-5 py-2 rounded-lg shadow transition"
                         >
                           Đăng ký
                         </button>
@@ -226,7 +221,7 @@ function App() {
                         <a
                           href="#"
                           aria-label="Facebook"
-                          className="hover:text-sky-300"
+                          className="hover:text-[var(--main-accent)]"
                         >
                           <svg
                             width="22"
@@ -240,7 +235,7 @@ function App() {
                         <a
                           href="#"
                           aria-label="Instagram"
-                          className="hover:text-sky-300"
+                          className="hover:text-[var(--main-accent)]"
                         >
                           <svg
                             width="22"
@@ -254,7 +249,7 @@ function App() {
                         <a
                           href="#"
                           aria-label="Twitter"
-                          className="hover:text-sky-300"
+                          className="hover:text-[var(--main-accent)]"
                         >
                           <svg
                             width="22"
@@ -268,7 +263,7 @@ function App() {
                       </div>
                     </div>
                   </div>
-                  <div className="mt-8 border-t border-white/10 pt-4 text-center text-xs text-sky-100/70">
+                  <div className="mt-8 border-t border-white/10 pt-4 text-center text-xs text-[#eaf6ff]/70 transition-colors duration-500">
                     © {new Date().getFullYear()} Snow Fashion Store. Thiết kế bởi đội
                     ngũ cảm hứng từ mùa đông & tuyết trắng.
                   </div>
