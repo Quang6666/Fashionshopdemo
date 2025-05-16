@@ -14,7 +14,7 @@ export default function NavigationBar() {
           }
         `}
       </style>
-      <nav className="fixed top-0 left-0 w-full z-[10] bg-[#233658cc] backdrop-blur-md border-b border-white/10 flex items-center justify-between px-6 py-2 shadow-lg">
+      <nav className="fixed top-0 left-0 w-full z-[50] bg-[#233658cc] backdrop-blur-md border-b border-white/10 flex items-center justify-between px-6 py-2 shadow-lg transition-colors duration-300" style={{background: "rgba(35,54,88,0.92)"}}>
         {/* Logo & brand */}
         <div className="flex items-center gap-2">
           <span className="inline-block rounded-full bg-gradient-to-tr from-blue-200 to-sky-400 p-1 mr-2">
