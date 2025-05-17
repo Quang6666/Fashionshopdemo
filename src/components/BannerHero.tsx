@@ -15,7 +15,7 @@ const bannerText: Record<LanguageType, { title: string; desc: string; btn: strin
   },
 };
 
-export default function BannerHero({ language }: { language: LanguageType }) {
+export default function BannerHero({ language, onBuyNow }: { language: LanguageType; onBuyNow?: () => void }) {
   const navigate = useNavigate();
   return (
     <section className="w-full flex items-center justify-center mt-6 px-2">
@@ -32,7 +32,7 @@ export default function BannerHero({ language }: { language: LanguageType }) {
           </p>
           <button
             className="mt-2 inline-block w-fit bg-white/85 text-[#233658] text-lg font-bold tracking-wide px-7 py-2 rounded-lg shadow hover:bg-[#fead62] hover:text-white/95 hover:scale-105 transition-all duration-200 border border-[#ffe5c8]"
-            onClick={() => navigate("/products")}
+            onClick={onBuyNow}
           >
             {bannerText[language].btn}
           </button>

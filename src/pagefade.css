@@ -1,0 +1,70 @@
+.pagefade-enter {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+}
+.pagefade-enter-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 350ms cubic-bezier(.4,0,.2,1), transform 350ms cubic-bezier(.4,0,.2,1);
+}
+.pagefade-exit {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.pagefade-exit-active {
+  opacity: 0;
+  transform: translateY(-24px) scale(0.98);
+  transition: opacity 350ms cubic-bezier(.4,0,.2,1), transform 350ms cubic-bezier(.4,0,.2,1);
+}
+
+/* Slide left (Home -> Products) */
+.slideleft-enter {
+  opacity: 0;
+  transform: translateX(100vw);
+}
+.slideleft-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 400ms cubic-bezier(.4,0,.2,1), transform 400ms cubic-bezier(.4,0,.2,1);
+}
+.slideleft-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.slideleft-exit-active {
+  opacity: 0;
+  transform: translateX(-60vw);
+  transition: opacity 400ms cubic-bezier(.4,0,.2,1), transform 400ms cubic-bezier(.4,0,.2,1);
+}
+
+/* Slide right (Products -> Home) */
+.slideright-enter {
+  opacity: 0;
+  transform: translateX(-100vw);
+}
+.slideright-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 400ms cubic-bezier(.4,0,.2,1), transform 400ms cubic-bezier(.4,0,.2,1);
+}
+.slideright-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.slideright-exit-active {
+  opacity: 0;
+  transform: translateX(60vw);
+  transition: opacity 400ms cubic-bezier(.4,0,.2,1), transform 400ms cubic-bezier(.4,0,.2,1);
+}
+
+/* Hiệu ứng fade riêng cho phần nội dung chính khi ấn "Mua sắm ngay" hoặc chuyển trang */
+.main-fade-section.fadein {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 1000ms cubic-bezier(.4,0,.2,1);
+}
+.main-fade-section.fadeout {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1000ms cubic-bezier(.4,0,.2,1);
+}
