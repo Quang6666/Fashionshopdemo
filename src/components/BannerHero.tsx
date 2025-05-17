@@ -1,7 +1,21 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { LanguageType } from "./NavigationBar";
 
-export default function BannerHero() {
+const bannerText: Record<LanguageType, { title: string; desc: string; btn: string }> = {
+  vi: {
+    title: "Thời Trang Đỉnh Cao – Ấm Áp Giữa Mùa Tuyết Trắng",
+    desc: "Cập nhật xu hướng mùa đông & bộ sưu tập độc quyền, giúp bạn luôn nổi bật dù băng giá.",
+    btn: "Mua sắm ngay",
+  },
+  en: {
+    title: "Top Winter Fashion – Stay Warm in the Snow Season",
+    desc: "Update your winter style & exclusive collections, always stand out even in the cold.",
+    btn: "Shop now",
+  },
+};
+
+export default function BannerHero({ language }: { language: LanguageType }) {
   const navigate = useNavigate();
   return (
     <section className="w-full flex items-center justify-center mt-6 px-2">
@@ -11,16 +25,16 @@ export default function BannerHero() {
       >
         <div className="flex-1 flex flex-col gap-3 z-10">
           <h2 className="text-2xl md:text-4xl font-bold text-white drop-shadow-xl mb-2 tracking-tight" style={{textShadow: "0 2px 16px #203173cc,0 4px 24px #fff8"}}>
-            Thời Trang Đỉnh Cao – Ấm Áp Giữa Mùa Tuyết Trắng
+            {bannerText[language].title}
           </h2>
           <p className="text-lg md:text-xl text-sky-100/95 font-medium max-w-md pb-3" style={{textShadow: "0 1px 10px #203173c4"}}>
-            Cập nhật xu hướng mùa đông & bộ sưu tập độc quyền, giúp bạn luôn nổi bật dù băng giá.
+            {bannerText[language].desc}
           </p>
           <button
             className="mt-2 inline-block w-fit bg-white/85 text-[#233658] text-lg font-bold tracking-wide px-7 py-2 rounded-lg shadow hover:bg-[#fead62] hover:text-white/95 hover:scale-105 transition-all duration-200 border border-[#ffe5c8]"
             onClick={() => navigate("/products")}
           >
-            Mua sắm ngay
+            {bannerText[language].btn}
           </button>
         </div>
         {/* gradient động phía sau */}

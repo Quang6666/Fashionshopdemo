@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { LanguageType } from "./NavigationBar";
 
 const demoProducts = [
 	{
@@ -84,7 +85,78 @@ const demoProducts = [
 	},
 ];
 
-export default function ProductList() {
+const productListText: Record<LanguageType, {
+  back: string;
+  title: string;
+  searchPlaceholder: string;
+  notFound: string;
+  detail: string;
+  price: string;
+  paginationPrev: string;
+  paginationNext: string;
+  footer: {
+    brand: string;
+    desc: string;
+    quickLinks: string;
+    home: string;
+    products: string;
+    sale: string;
+    contact: string;
+    subscribe: string;
+    emailPlaceholder: string;
+    subscribeBtn: string;
+    copyright: string;
+  };
+}> = {
+  vi: {
+    back: "← Trang chủ",
+    title: "Danh sách sản phẩm",
+    searchPlaceholder: "Tìm kiếm sản phẩm...",
+    notFound: "Không tìm thấy sản phẩm phù hợp.",
+    detail: "Xem chi tiết",
+    price: "Giá",
+    paginationPrev: "<",
+    paginationNext: ">",
+    footer: {
+      brand: "Snow Fashion Store",
+      desc: "Đem đến cho bạn trải nghiệm mua sắm mùa đông đẳng cấp với các sản phẩm thời trang ấm áp, hiện đại và phong cách. Cảm hứng từ tuyết trắng và sắc xanh lạnh, chúng tôi luôn cập nhật xu hướng mới nhất.",
+      quickLinks: "Liên kết nhanh",
+      home: "Trang chủ",
+      products: "Sản phẩm",
+      sale: "Khuyến mãi",
+      contact: "Liên hệ",
+      subscribe: "Nhận ưu đãi & tin mới",
+      emailPlaceholder: "Nhập email của bạn",
+      subscribeBtn: "Đăng ký",
+      copyright: `© ${new Date().getFullYear()} Snow Fashion Store. Thiết kế bởi đội ngũ cảm hứng từ mùa đông & tuyết trắng.`
+    }
+  },
+  en: {
+    back: "← Home",
+    title: "Product List",
+    searchPlaceholder: "Search products...",
+    notFound: "No matching products found.",
+    detail: "View details",
+    price: "Price",
+    paginationPrev: "<",
+    paginationNext: ">",
+    footer: {
+      brand: "Snow Fashion Store",
+      desc: "Experience premium winter shopping with warm, modern, and stylish fashion. Inspired by white snow and cool blue, we always update the latest trends.",
+      quickLinks: "Quick Links",
+      home: "Home",
+      products: "Products",
+      sale: "Sale",
+      contact: "Contact",
+      subscribe: "Get offers & news",
+      emailPlaceholder: "Enter your email",
+      subscribeBtn: "Subscribe",
+      copyright: `© ${new Date().getFullYear()} Snow Fashion Store. Designed by a team inspired by winter & snow.`
+    }
+  }
+};
+
+export default function ProductList({ language }: { language: LanguageType }) {
 	const [search, setSearch] = useState("");
 	const [page, setPage] = useState(1);
 	const navigate = useNavigate();
@@ -110,15 +182,15 @@ export default function ProductList() {
 					className="fixed top-24 left-7 z-40 bg-white/85 text-[#233658] text-lg font-bold tracking-wide px-6 py-2 rounded-lg shadow border border-[#ffe5c8] hover:bg-[#fead62] hover:text-white/95 hover:scale-105 transition-all duration-200"
 					style={{ boxShadow: "0 2px 12px #a6c6fb55" }}
 				>
-					← Trang chủ
+					{productListText[language].back}
 				</button>
 				<h1 className="text-3xl md:text-4xl font-bold text-center text-zinc-100 drop-shadow-lg mb-8">
-					Danh sách sản phẩm
+					{productListText[language].title}
 				</h1>
 				<div className="w-full max-w-xl mb-8">
 					<input
 						type="text"
-						placeholder="Tìm kiếm sản phẩm..."
+						placeholder={productListText[language].searchPlaceholder}
 						value={search}
 						onChange={(e) => setSearch(e.target.value)}
 						className="w-full px-5 py-3 rounded-xl border border-sky-200 bg-white/80 text-slate-800 text-lg shadow focus:outline-none focus:ring-2 focus:ring-sky-400 transition"
@@ -127,7 +199,7 @@ export default function ProductList() {
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7 w-full max-w-5xl px-2">
 					{pagedProducts.length === 0 ? (
 						<div className="col-span-full text-center text-sky-200 text-lg">
-							Không tìm thấy sản phẩm phù hợp.
+							{productListText[language].notFound}
 						</div>
 					) : (
 						pagedProducts.map((sp, i) => (
@@ -148,7 +220,7 @@ export default function ProductList() {
 									{sp.price}
 								</div>
 								<button className="mt-2 inline-block w-fit bg-white/85 text-[#233658] text-lg font-bold tracking-wide px-7 py-2 rounded-lg shadow hover:bg-[#fead62] hover:text-white/95 hover:scale-105 transition-all duration-200 border border-[#ffe5c8]">
-									Xem chi tiết
+									{productListText[language].detail}
 								</button>
 							</div>
 						))
@@ -162,7 +234,7 @@ export default function ProductList() {
 							disabled={page === 1}
 							className="px-4 py-2 rounded-lg font-bold bg-sky-200 text-sky-800 disabled:opacity-50 disabled:cursor-not-allowed shadow"
 						>
-							&lt;
+							{productListText[language].paginationPrev}
 						</button>
 						{Array.from({ length: totalPages }, (_, i) => (
 							<button
@@ -182,7 +254,7 @@ export default function ProductList() {
 							disabled={page === totalPages}
 							className="px-4 py-2 rounded-lg font-bold bg-sky-200 text-sky-800 disabled:opacity-50 disabled:cursor-not-allowed shadow"
 						>
-							&gt;
+							{productListText[language].paginationNext}
 						</button>
 					</div>
 				)}
@@ -213,19 +285,17 @@ export default function ProductList() {
 								</svg>
 							</span>
 							<span className="text-xl font-bold tracking-wider drop-shadow-sm">
-								Snow Fashion Store
+								{productListText[language].footer.brand}
 							</span>
 						</div>
 						<p className="text-[#eaf6ff]/90 text-sm max-w-xs leading-relaxed">
-							Đem đến cho bạn trải nghiệm mua sắm mùa đông đẳng cấp với các sản phẩm
-							thời trang ấm áp, hiện đại và phong cách. Cảm hứng từ tuyết trắng và sắc
-							xanh lạnh, chúng tôi luôn cập nhật xu hướng mới nhất.
+							{productListText[language].footer.desc}
 						</p>
 					</div>
 					{/* Cột 2: Liên kết nhanh */}
 					<div className="flex-1 min-w-[180px] mb-6 md:mb-0">
 						<h4 className="font-bold text-lg mb-3 text-[var(--main-accent)]">
-							Liên kết nhanh
+							{productListText[language].footer.quickLinks}
 						</h4>
 						<ul className="space-y-2 text-[#eaf6ff]/90">
 							<li>
@@ -233,7 +303,7 @@ export default function ProductList() {
 									href="/"
 									className="hover:text-[var(--main-accent)] hover:bg-white hover:bg-opacity-80 transition rounded px-2 py-1"
 								>
-									Trang chủ
+									{productListText[language].footer.home}
 								</a>
 							</li>
 							<li>
@@ -241,7 +311,7 @@ export default function ProductList() {
 									href="/products"
 									className="hover:text-[var(--main-accent)] hover:bg-white hover:bg-opacity-80 transition rounded px-2 py-1"
 								>
-									Sản phẩm
+									{productListText[language].footer.products}
 								</a>
 							</li>
 							<li>
@@ -249,7 +319,7 @@ export default function ProductList() {
 									href="#sale"
 									className="hover:text-[var(--main-accent)] hover:bg-white hover:bg-opacity-80 transition rounded px-2 py-1"
 								>
-									Khuyến mãi
+									{productListText[language].footer.sale}
 								</a>
 							</li>
 							<li>
@@ -257,7 +327,7 @@ export default function ProductList() {
 									href="#contact"
 									className="hover:text-[var(--main-accent)] hover:bg-white hover:bg-opacity-80 transition rounded px-2 py-1"
 								>
-									Liên hệ
+									{productListText[language].footer.contact}
 								</a>
 							</li>
 						</ul>
@@ -265,20 +335,20 @@ export default function ProductList() {
 					{/* Cột 3: Đăng ký nhận tin */}
 					<div className="flex-1 min-w-[220px]">
 						<h4 className="font-bold text-lg mb-3 text-[var(--main-accent)]">
-							Nhận ưu đãi & tin mới
+							{productListText[language].footer.subscribe}
 						</h4>
 						<form className="flex flex-col gap-2">
 							<input
 								type="email"
 								required
-								placeholder="Nhập email của bạn"
+								placeholder={productListText[language].footer.emailPlaceholder}
 								className="rounded-lg px-3 py-2 bg-white/90 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--main-accent)]"
 							/>
 							<button
 								type="submit"
 								className="bg-[var(--main-accent)] hover:bg-[var(--main-btn-hover)] text-white font-bold px-5 py-2 rounded-lg shadow transition"
 							>
-								Đăng ký
+								{productListText[language].footer.subscribeBtn}
 							</button>
 						</form>
 						<div className="flex gap-3 mt-4">
@@ -328,7 +398,7 @@ export default function ProductList() {
 					</div>
 				</div>
 				<div className="mt-8 border-t border-white/10 pt-4 text-center text-xs text-[#eaf6ff]/70 transition-colors duration-500">
-					© {new Date().getFullYear()} Snow Fashion Store. Thiết kế bởi đội ngũ cảm hứng từ mùa đông & tuyết trắng.
+					{productListText[language].footer.copyright}
 				</div>
 			</footer>
 		</div>

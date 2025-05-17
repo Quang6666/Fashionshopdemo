@@ -1,12 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SnowBackground from "@/components/SnowBackground";
-import NavigationBar from "@/components/NavigationBar";
+import NavigationBar, { LanguageType } from "@/components/NavigationBar";
 import BannerHero from "@/components/BannerHero";
 import ProductListPage from "@/components/ProductListPage";
 import "@/sparkle.css";
 
+const featuredText: Record<LanguageType, {
+  sectionTitle: string;
+  buyNow: string;
+  footer: {
+    brand: string;
+    desc: string;
+    quickLinks: string;
+    home: string;
+    products: string;
+    sale: string;
+    contact: string;
+    subscribe: string;
+    emailPlaceholder: string;
+    subscribeBtn: string;
+    copyright: string;
+  };
+}> = {
+  vi: {
+    sectionTitle: "Sản phẩm nổi bật",
+    buyNow: "Mua ngay",
+    footer: {
+      brand: "Snow Fashion Store",
+      desc: "Đem đến cho bạn trải nghiệm mua sắm mùa đông đẳng cấp với các sản phẩm thời trang ấm áp, hiện đại và phong cách. Cảm hứng từ tuyết trắng và sắc xanh lạnh, chúng tôi luôn cập nhật xu hướng mới nhất.",
+      quickLinks: "Liên kết nhanh",
+      home: "Trang chủ",
+      products: "Sản phẩm",
+      sale: "Khuyến mãi",
+      contact: "Liên hệ",
+      subscribe: "Nhận ưu đãi & tin mới",
+      emailPlaceholder: "Nhập email của bạn",
+      subscribeBtn: "Đăng ký",
+      copyright: `© ${new Date().getFullYear()} Snow Fashion Store. Thiết kế bởi đội ngũ cảm hứng từ mùa đông & tuyết trắng.`
+    }
+  },
+  en: {
+    sectionTitle: "Featured Products",
+    buyNow: "Buy now",
+    footer: {
+      brand: "Snow Fashion Store",
+      desc: "Experience premium winter shopping with warm, modern, and stylish fashion. Inspired by white snow and cool blue, we always update the latest trends.",
+      quickLinks: "Quick Links",
+      home: "Home",
+      products: "Products",
+      sale: "Sale",
+      contact: "Contact",
+      subscribe: "Get offers & news",
+      emailPlaceholder: "Enter your email",
+      subscribeBtn: "Subscribe",
+      copyright: `© ${new Date().getFullYear()} Snow Fashion Store. Designed by a team inspired by winter & snow.`
+    }
+  }
+};
+
 function App() {
+  // State ngôn ngữ toàn app
+  const [language, setLanguage] = useState<LanguageType>(() => {
+    return (localStorage.getItem("language") as LanguageType) || "vi";
+  });
+  React.useEffect(() => {
+    localStorage.setItem("language", language);
+  }, [language]);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -14,16 +75,16 @@ function App() {
           path="/"
           element={
             <SnowBackground>
-              <NavigationBar />
+              <NavigationBar language={language} setLanguage={setLanguage} />
               <div style={{ minHeight: "100vh", position: "relative" }}>
                 <h1 className="animate-pulse text-4xl font-bold text-center mt-20 text-zinc-100 drop-shadow-lg relative select-none">
                   Snow Fashion Store
                 </h1>
-                <BannerHero />
+                <BannerHero language={language} />
                 {/* Danh sách sản phẩm nổi bật */}
                 <section id="products" className="max-w-5xl mx-auto mt-10 px-4">
                   <h3 className="text-2xl font-bold text-center mb-6 text-sky-100 drop-shadow-lg ">
-                    Sản phẩm nổi bật
+                    {featuredText[language].sectionTitle}
                   </h3>
                   <div className="rounded-3xl shadow-2xl border border-white/25 relative overflow-hidden flex flex-col items-center justify-between w-full min-h-[225px] py-7 px-5 md:px-16 mb-8 banner-hero-products">
                     <div className="relative w-full z-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7">
@@ -79,7 +140,7 @@ function App() {
                             {sp.price}
                           </div>
                           <button className="mt-2 inline-block w-fit bg-white/85 text-[#233658] text-lg font-bold tracking-wide px-7 py-2 rounded-lg shadow hover:bg-[#fead62] hover:text-white/95 hover:scale-105 transition-all duration-200 border border-[#ffe5c8]">
-                            Mua ngay
+                            {featuredText[language].buyNow}
                           </button>
                         </div>
                       ))}
@@ -148,20 +209,17 @@ function App() {
                           </svg>
                         </span>
                         <span className="text-xl font-bold tracking-wider drop-shadow-sm">
-                          Snow Fashion Store
+                          {featuredText[language].footer.brand}
                         </span>
                       </div>
                       <p className="text-[#eaf6ff]/90 text-sm max-w-xs leading-relaxed">
-                        Đem đến cho bạn trải nghiệm mua sắm mùa đông đẳng cấp với các
-                        sản phẩm thời trang ấm áp, hiện đại và phong cách. Cảm hứng từ
-                        tuyết trắng và sắc xanh lạnh, chúng tôi luôn cập nhật xu hướng
-                        mới nhất.
+                        {featuredText[language].footer.desc}
                       </p>
                     </div>
                     {/* Cột 2: Liên kết nhanh */}
                     <div className="flex-1 min-w-[180px] mb-6 md:mb-0">
                       <h4 className="font-bold text-lg mb-3 text-[var(--main-accent)]">
-                        Liên kết nhanh
+                        {featuredText[language].footer.quickLinks}
                       </h4>
                       <ul className="space-y-2 text-[#eaf6ff]/90">
                         <li>
@@ -169,7 +227,7 @@ function App() {
                             href="/"
                             className="hover:text-[var(--main-accent)] hover:bg-white hover:bg-opacity-80 transition rounded px-2 py-1"
                           >
-                            Trang chủ
+                            {featuredText[language].footer.home}
                           </a>
                         </li>
                         <li>
@@ -177,7 +235,7 @@ function App() {
                             href="/products"
                             className="hover:text-[var(--main-accent)] hover:bg-white hover:bg-opacity-80 transition rounded px-2 py-1"
                           >
-                            Sản phẩm
+                            {featuredText[language].footer.products}
                           </a>
                         </li>
                         <li>
@@ -185,7 +243,7 @@ function App() {
                             href="#sale"
                             className="hover:text-[var(--main-accent)] hover:bg-white hover:bg-opacity-80 transition rounded px-2 py-1"
                           >
-                            Khuyến mãi
+                            {featuredText[language].footer.sale}
                           </a>
                         </li>
                         <li>
@@ -193,7 +251,7 @@ function App() {
                             href="#contact"
                             className="hover:text-[var(--main-accent)] hover:bg-white hover:bg-opacity-80 transition rounded px-2 py-1"
                           >
-                            Liên hệ
+                            {featuredText[language].footer.contact}
                           </a>
                         </li>
                       </ul>
@@ -201,20 +259,20 @@ function App() {
                     {/* Cột 3: Đăng ký nhận tin */}
                     <div className="flex-1 min-w-[220px]">
                       <h4 className="font-bold text-lg mb-3 text-[var(--main-accent)]">
-                        Nhận ưu đãi & tin mới
+                        {featuredText[language].footer.subscribe}
                       </h4>
                       <form className="flex flex-col gap-2">
                         <input
                           type="email"
                           required
-                          placeholder="Nhập email của bạn"
+                          placeholder={featuredText[language].footer.emailPlaceholder}
                           className="rounded-lg px-3 py-2 bg-white/90 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--main-accent)]"
                         />
                         <button
                           type="submit"
                           className="bg-[var(--main-accent)] hover:bg-[var(--main-btn-hover)] text-white font-bold px-5 py-2 rounded-lg shadow transition"
                         >
-                          Đăng ký
+                          {featuredText[language].footer.subscribeBtn}
                         </button>
                       </form>
                       <div className="flex gap-3 mt-4">
@@ -264,15 +322,14 @@ function App() {
                     </div>
                   </div>
                   <div className="mt-8 border-t border-white/10 pt-4 text-center text-xs text-[#eaf6ff]/70 transition-colors duration-500">
-                    © {new Date().getFullYear()} Snow Fashion Store. Thiết kế bởi đội
-                    ngũ cảm hứng từ mùa đông & tuyết trắng.
+                    {featuredText[language].footer.copyright}
                   </div>
                 </footer>
               </div>
             </SnowBackground>
           }
         />
-        <Route path="/products" element={<ProductListPage />} />
+        <Route path="/products" element={<ProductListPage language={language} setLanguage={setLanguage} />} />
       </Routes>
     </BrowserRouter>
   );

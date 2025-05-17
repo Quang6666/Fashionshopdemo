@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-export default function NavigationBar() {
+// Định nghĩa type cho language
+export type LanguageType = "vi" | "en";
+
+export default function NavigationBar({ language, setLanguage }: { language: LanguageType; setLanguage: (lang: LanguageType) => void }) {
   // State theme: "snow" | "fire"
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "snow");
 
@@ -9,6 +12,36 @@ export default function NavigationBar() {
     document.body.classList.add(`theme-${theme}`);
     localStorage.setItem("theme", theme);
   }, [theme]);
+
+  // Đa ngôn ngữ cho nav
+  const navText: Record<LanguageType, {
+    brand: string;
+    products: string;
+    sale: string;
+    contact: string;
+    theme: { snow: string; fire: string };
+    lang: string;
+    langSwitch: string;
+  }> = {
+    vi: {
+      brand: "SnowStyle",
+      products: "Sản phẩm",
+      sale: "Sale",
+      contact: "Liên hệ",
+      theme: { snow: "Chế độ Tuyết", fire: "Chế độ Lửa" },
+      lang: "Tiếng Việt",
+      langSwitch: "EN",
+    },
+    en: {
+      brand: "SnowStyle",
+      products: "Products",
+      sale: "Sale",
+      contact: "Contact",
+      theme: { snow: "Snow Mode", fire: "Fire Mode" },
+      lang: "English",
+      langSwitch: "VI",
+    },
+  };
 
   return (
     <>
@@ -58,15 +91,15 @@ export default function NavigationBar() {
           <span className="inline-block rounded-full bg-gradient-to-tr from-blue-200 to-sky-400 p-1 mr-2">
             <svg width={36} height={36} viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" fill="#edf5fb" stroke="#d2e6fc" strokeWidth={2}/><path d="M10 34 Q20 13 30 34" stroke="#4c91ce" strokeWidth={3} fill="none"/><circle cx="20" cy="25" r="3" fill="#4c91ce"/></svg>
           </span>
-          <span className="text-xl font-bold text-white tracking-wider drop-shadow-sm">SnowStyle</span>
+          <span className="text-xl font-bold text-white tracking-wider drop-shadow-sm">{navText[language].brand}</span>
         </div>
         {/* Menu */}
         <ul className="hidden md:flex gap-7 text-zinc-100 font-bold text-base items-center">
-          <li><a href="/products" className="frost-hover px-3 py-1.5 rounded-md font-bold transition-all duration-200">Sản phẩm</a></li>
-          <li><a href="#sale" className="frost-hover px-3 py-1.5 rounded-md font-bold transition-all duration-200">Sale</a></li>
-          <li><a href="#contact" className="frost-hover px-3 py-1.5 rounded-md font-bold transition-all duration-200">Liên hệ</a></li>
+          <li><a href="/products" className="frost-hover px-3 py-1.5 rounded-md font-bold transition-all duration-200">{navText[language].products}</a></li>
+          <li><a href="#sale" className="frost-hover px-3 py-1.5 rounded-md font-bold transition-all duration-200">{navText[language].sale}</a></li>
+          <li><a href="#contact" className="frost-hover px-3 py-1.5 rounded-md font-bold transition-all duration-200">{navText[language].contact}</a></li>
         </ul>
-        {/* Theme switch button + Cart icon & hamburger menu */}
+        {/* Theme switch button + Language switch + Cart icon & hamburger menu */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => setTheme(theme === "snow" ? "fire" : "snow")}
@@ -74,7 +107,15 @@ export default function NavigationBar() {
             style={{ minWidth: 120 }}
             aria-label="Đổi màu giao diện"
           >
-            {theme === "fire" ? "Chế độ Lửa" : "Chế độ Tuyết"}
+            {theme === "fire" ? navText[language].theme.fire : navText[language].theme.snow}
+          </button>
+          <button
+            onClick={() => setLanguage(language === "vi" ? "en" : "vi")}
+            className="px-3 py-2 rounded-lg font-bold shadow border border-[#ffe5c8] bg-white/85 text-[#233658] hover:bg-[#fead62] hover:text-white/95 transition-all duration-200"
+            aria-label="Switch language"
+            style={{ minWidth: 48 }}
+          >
+            {navText[language].langSwitch}
           </button>
           <button className="relative group hover:scale-110 transition-transform">
             <svg width={25} height={25} fill="none" stroke="#fff" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><circle cx="10" cy="21" r="1.5"/><circle cx="18" cy="21" r="1.5"/><path d="M4 4h2l2.5 13h10l2.5-9H7"/></svg>

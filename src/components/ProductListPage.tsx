@@ -1,13 +1,13 @@
 import React from "react";
 import SnowBackground from "@/components/SnowBackground";
-import NavigationBar from "@/components/NavigationBar";
+import NavigationBar, { LanguageType } from "@/components/NavigationBar";
 import ProductList from "@/components/ProductList";
 
-export default function ProductListPage() {
+export default function ProductListPage({ language, setLanguage }: { language: LanguageType; setLanguage?: (lang: LanguageType) => void }) {
   return (
     <SnowBackground>
-      <NavigationBar />
-      <ProductList />
+      <NavigationBar language={language} setLanguage={setLanguage || (() => {})} />
+      <ProductList language={language} />
     </SnowBackground>
   );
 }
